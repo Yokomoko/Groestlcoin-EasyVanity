@@ -62,7 +62,7 @@ namespace Groestlcoin_VanityGen_UI {
             Titlebar.Clicked += (sender, args) => ThemeSelector.ThemeSelector.SetCurrentThemeDictionary(this, new Uri((Titlebar.uxThemeSelector.SelectedItem as ComboBoxItem).Tag.ToString(), UriKind.Relative));
         }
 
-        private void OnYesDialogClick(object obj){
+        private void OnYesDialogClick(object obj) {
             DH.IsOpen = false;
         }
 
@@ -346,19 +346,15 @@ namespace Groestlcoin_VanityGen_UI {
             return true;
         }
 
-
-        private void UxPwdToggleBtn_OnClick(object sender, RoutedEventArgs e) {
-            //uxSecretPrivKey.Password = uxPrivKeyTxt.Text;
-            if (((ToggleButton)sender).IsChecked == true) {
-                uxPrivKeyTxt.Visibility = Visibility.Visible;
-                uxSecretPrivKey.Visibility = Visibility.Collapsed;
-            }
-            else {
-                uxPrivKeyTxt.Visibility = Visibility.Collapsed;
-                uxSecretPrivKey.Visibility = Visibility.Visible;
-            }
+        private void UxPwdToggleBtn_OnChecked(object sender, RoutedEventArgs e) {
+            uxPrivKeyTxt.Visibility = Visibility.Visible;
+            uxSecretPrivKey.Visibility = Visibility.Collapsed;
         }
 
+        private void UxPwdToggleBtn_OnUnchecked(object sender, RoutedEventArgs e) {
+            uxPrivKeyTxt.Visibility = Visibility.Collapsed;
+            uxSecretPrivKey.Visibility = Visibility.Visible;
+        }
         private void UxSecretPrivKey_OnPreviewTextInput(object sender, TextCompositionEventArgs e) {
             //Make read-only
             e.Handled = true;
@@ -379,6 +375,26 @@ namespace Groestlcoin_VanityGen_UI {
 
 
             DialogHelper.ShowOKDialog(DH, "Private Key Copied to Clipboard");
+        }
+
+        private void UxOutputKeysChk_OnChecked(object sender, RoutedEventArgs e) {
+            uxPrivKeyTxt.Visibility = Visibility.Collapsed;
+            uxSecretPrivKey.Visibility = Visibility.Collapsed;
+            uxCopyBtn.Visibility = Visibility.Collapsed;
+            uxPwdToggleBtn.Visibility = Visibility.Collapsed;
+            uxViewFileBtn.Visibility = Visibility.Visible;
+        }
+
+        private void UxOutputKeysChk_OnUnchecked(object sender, RoutedEventArgs e) {
+            if (uxPwdToggleBtn.IsChecked == true) {
+                uxPrivKeyTxt.Visibility = Visibility.Visible;
+            }
+            else {
+                uxSecretPrivKey.Visibility = Visibility.Visible;
+            }
+            uxCopyBtn.Visibility = Visibility.Visible;
+            uxPwdToggleBtn.Visibility = Visibility.Visible;
+            uxViewFileBtn.Visibility = Visibility.Collapsed;
         }
     }
 }

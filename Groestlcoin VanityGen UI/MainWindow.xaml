@@ -152,7 +152,7 @@
                                             <TextBlock Grid.Column="0" Grid.Row="2">Keep Finding</TextBlock>
                                             <TextBlock Grid.Column="0" Grid.Row="4">Using CPU or GPU</TextBlock>
                                             <CheckBox Grid.Column="1" Grid.Row="0" Name="uxCaseOptChk"  Style="{DynamicResource MaterialDesignCheckBox}"></CheckBox>
-                                            <CheckBox Grid.Column="1" Grid.Row="1" Name="uxOutputKeysChk"  Style="{DynamicResource MaterialDesignCheckBox}"/>
+                                            <CheckBox Grid.Column="1" Grid.Row="1" Name="uxOutputKeysChk" Checked="UxOutputKeysChk_OnChecked" Unchecked="UxOutputKeysChk_OnUnchecked" Style="{DynamicResource MaterialDesignCheckBox}"/>
                                             <CheckBox Grid.Column="1" Grid.Row="2" Name="uxKeepFindingOptChk">
                                                 <CheckBox.Style>
                                                     <Style BasedOn="{StaticResource MaterialDesignCheckBox}" TargetType="CheckBox">
@@ -252,14 +252,7 @@
                                 <PasswordBox Name="uxSecretPrivKey" Width="405" ContextMenu="{x:Null}" PreviewKeyDown="UxSecretPrivKey_OnPreviewKeyDown" materialDesign:HintAssist.Hint="Private Key" HorizontalAlignment="Left" PreviewTextInput="UxSecretPrivKey_OnPreviewTextInput">
                                     <PasswordBox.Style>
                                         <Style BasedOn="{StaticResource MaterialDesignFloatingHintPasswordBox}" TargetType="PasswordBox">
-                                            <!--<Setter Property="IsEnabled" Value="False"></Setter>-->
                                             <Style.Triggers>
-                                                <!--<DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True">
-                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False">
-                                                    <Setter Property="Visibility" Value="Visible" ></Setter>
-                                                </DataTrigger>-->
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="True"/>
@@ -276,8 +269,8 @@
                                                 </MultiDataTrigger>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="False"/>
                                                         <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False"/>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="False"/>
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter Property="Visibility" Value="Visible"></Setter>
                                                 </MultiDataTrigger>
@@ -292,7 +285,7 @@
                                         </Style>
                                     </PasswordBox.Style>
                                 </PasswordBox>
-                                <ToggleButton Name="uxPwdToggleBtn" Click="UxPwdToggleBtn_OnClick" Height="24" Width="24">
+                                <ToggleButton Name="uxPwdToggleBtn" Checked="UxPwdToggleBtn_OnChecked" Unchecked="UxPwdToggleBtn_OnUnchecked" Height="24" Width="24">
                                     <ToggleButton.Style>
                                         <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton">
                                             <Style.Triggers>
