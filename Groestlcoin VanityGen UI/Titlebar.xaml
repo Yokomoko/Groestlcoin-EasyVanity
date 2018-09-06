@@ -30,11 +30,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Title, RelativeSource={RelativeSource FindAncestor,AncestorType=Window},FallbackValue=Title}" Margin="10,0,0,0" VerticalAlignment="Center">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="LightGray" ShadowDepth="0.2"/>
-                    </TextBlock.Effect>
-                </TextBlock>
+                <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesignBody}" Text="{Binding Title, RelativeSource={RelativeSource FindAncestor,AncestorType=Window},FallbackValue=Title}" Margin="10,0,0,0" VerticalAlignment="Center"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
                     <Label>Theme:</Label>

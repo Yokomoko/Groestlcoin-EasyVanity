@@ -19,8 +19,8 @@ namespace Groestlcoin_VanityGen_UI {
             Swatches = new SwatchesProvider().Swatches;
         }
 
-        public Swatch DarkPrimary => Swatches.First(d => d.Name == "indigo");
-        public Swatch LightPrimary => Swatches.First(d => d.Name == "teal");
+        public Swatch DarkPrimary => Swatches.First(d => d.Name == "purple");
+        public Swatch LightPrimary => Swatches.First(d => d.Name == "indigo");
 
         public void ApplyBase(bool isDark) {
             new PaletteHelper().SetLightDark(isDark);
