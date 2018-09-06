@@ -88,10 +88,10 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Rectangle Grid.Column="0" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="64" Height="64">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="Resources/GRS-logo-empty_Vanity.png"></ImageBrush>
-                                </Rectangle.Fill>
+                            <Rectangle Grid.Column="0" Fill="{DynamicResource GrsLogo}" Opacity="0.2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="2" Color="WhiteSmoke" Opacity="0.5" ShadowDepth="2"></DropShadowEffect>
+                                </Rectangle.Effect>
                             </Rectangle>
                             <DockPanel Grid.Column="1" Grid.ColumnSpan="2">
                                 <TextBlock  FontSize="47" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9">
