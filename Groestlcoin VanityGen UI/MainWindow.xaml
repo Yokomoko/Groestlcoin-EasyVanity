@@ -1,0 +1,403 @@
+﻿<Window x:Class="Groestlcoin_VanityGen_UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Groestlcoin_VanityGen_UI.ThemeSelector"
+        mc:Ignorable="d" WindowStyle="None" 
+        xmlns:groestlcoinVanityGenUi="clr-namespace:Groestlcoin_VanityGen_UI"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown"
+        local:ThemeSelector.CurrentThemeDictionary="{Binding ElementName=uxThemeSelector, Path=SelectedItem.Tag}"
+        Style="{DynamicResource ResourceKey=WindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Icon="/Resources/GRS-logo.ico" BorderThickness="3"
+        AllowsTransparency="True"
+        Title="Groestlcoin EasyVanity" SizeToContent="WidthAndHeight" Closing="MainWindow_OnClosing">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <materialDesign:DrawerHost
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        BorderThickness="2"
+        BorderBrush="{DynamicResource MaterialDesignDivider}">
+        <materialDesign:DrawerHost.BottomDrawerContent>
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="3">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="ArrowDown"></materialDesign:PackIcon>
+                    </Button.Content>
+                </Button>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="30,0,30,0">
+                    <TextBlock FontWeight="Bold">Keys Per Second:</TextBlock>
+                    <TextBlock Name="uxKps">N/A</TextBlock>
+                </StackPanel>
+                <!--<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="30,0,30,0">
+                    <TextBlock FontWeight="Bold">Total Keys Tried:</TextBlock>
+                    <TextBlock Name="uxTlKeysLbl">N/A</TextBlock>
+                </StackPanel>-->
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="30,0,30,0">
+                    <TextBlock FontWeight="Bold">Chance:</TextBlock>
+                    <TextBlock Name="uxProbLbl">N/A</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Margin="30,0,30,0">
+                    <TextBlock FontWeight="Bold">CPU:</TextBlock>
+                    <TextBlock Name="uxCPULbl">0%</TextBlock>
+                </StackPanel>
+
+            </Grid>
+        </materialDesign:DrawerHost.BottomDrawerContent>
+        <materialDesign:DialogHost Name="DH">
+            <Grid Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25px"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="25px"></RowDefinition>
+                    <RowDefinition Height="20px"></RowDefinition>
+                </Grid.RowDefinitions>
+                <groestlcoinVanityGenUi:Titlebar x:Name="Titlebar" BorderThickness="0" IsMainWindow="True"></groestlcoinVanityGenUi:Titlebar>
+                <Grid Margin="5,10,5,10" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="85px"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:ColorZone Grid.Row="0" Grid.ColumnSpan="2" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top">
+                        <Grid VerticalAlignment="Top" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle Grid.Column="0" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="64" Height="64">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="Resources/GRS-logo-empty_Vanity.png"></ImageBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <DockPanel Grid.Column="1" Grid.ColumnSpan="2">
+                                <TextBlock  FontSize="47" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9">
+                                    <TextBlock.Effect>
+                                        <BlurEffect Radius="0.5" KernelType="Box" />
+                                    </TextBlock.Effect>
+                                Groestlcoin EasyVanity
+                                </TextBlock>
+                            </DockPanel>
+                        </Grid>
+                    </materialDesign:ColorZone>
+                    <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2" Padding="32" Margin="16" Height="215">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                                    <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                </Style>
+                            </Grid.Resources>
+                            <TextBox Grid.Row="0" Grid.Column="0" Name="uxPhraseTxt" PreviewTextInput="UxPhraseTxt_OnPreviewTextInput" DataObject.Pasting="UxPhraseTxt_OnPasting" Width="160" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Phrase you want to match" ></TextBox>
+                            <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Name="PopupEnabled">Advanced:</TextBlock>
+                                    <materialDesign:PopupBox Margin="16,0,16,0" StaysOpen="True">
+                                        <Grid Width="300" Margin="8,8,8,8">
+                                            <Grid.Resources>
+                                                <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+                                                    <Setter Property="Margin" Value="8,8,10,8" />
+                                                </Style>
+                                                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                                    <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
+                                                    <Setter Property="Margin" Value="8,8,8,8" />
+                                                </Style>
+                                            </Grid.Resources>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0">Case Sensitive</TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="1">Save Keys to Text File</TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="2">Keep Finding</TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="4">Using CPU or GPU</TextBlock>
+                                            <CheckBox Grid.Column="1" Grid.Row="0" Name="uxCaseOptChk"  Style="{DynamicResource MaterialDesignCheckBox}"></CheckBox>
+                                            <CheckBox Grid.Column="1" Grid.Row="1" Name="uxOutputKeysChk"  Style="{DynamicResource MaterialDesignCheckBox}"/>
+                                            <CheckBox Grid.Column="1" Grid.Row="2" Name="uxKeepFindingOptChk">
+                                                <CheckBox.Style>
+                                                    <Style BasedOn="{StaticResource MaterialDesignCheckBox}" TargetType="CheckBox">
+                                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True">
+                                                                <Setter Property="IsEnabled" Value="True"></Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False">
+                                                                <Setter Property="IsEnabled" Value="False" ></Setter>
+                                                                <Setter Property="IsChecked" Value="False" ></Setter>
+                                                            </DataTrigger>
+
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                            <Separator Grid.ColumnSpan="2" Grid.Row="3"></Separator>
+                                            <ToggleButton Grid.Column="1" Grid.Row="4" Style="{DynamicResource MaterialDesignActionToggleButton}" Name="uxHwSelect" Margin="0,0,8,0" HorizontalAlignment="Center">
+                                                <ToggleButton.Content>
+                                                    <TextBlock FontSize="10">CPU</TextBlock>
+                                                </ToggleButton.Content>
+                                                <materialDesign:ToggleButtonAssist.OnContent>
+                                                    <TextBlock FontSize="10">GPU</TextBlock>
+                                                </materialDesign:ToggleButtonAssist.OnContent>
+                                            </ToggleButton>
+                                        </Grid>
+                                    </materialDesign:PopupBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <TextBox Grid.ColumnSpan="2"  Grid.Row="1" Grid.Column="0" IsReadOnly="True" Name="uxPubKeyTxt" Width="410" materialDesign:HintAssist.Hint="Public Key" HorizontalAlignment="Left">
+                                <TextBox.Style>
+                                    <Style BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" TargetType="TextBox">
+                                        <Setter Property="IsReadOnly" Value="True"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False">
+                                                <Setter Property="Visibility" Value="Visible" ></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+
+                            <StackPanel Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True">
+                                                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False">
+                                                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBox Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="0" IsReadOnly="True" Name="uxPrivKeyTxt" Width="405"  materialDesign:HintAssist.Hint="Private Key" HorizontalAlignment="Left">
+                                    <TextBox.Style>
+                                        <Style BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" TargetType="TextBox">
+                                            <Setter Property="IsReadOnly" Value="True"></Setter>
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="True"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="False"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="True"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="False"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                                <PasswordBox Name="uxSecretPrivKey" Width="405" ContextMenu="{x:Null}" PreviewKeyDown="UxSecretPrivKey_OnPreviewKeyDown" materialDesign:HintAssist.Hint="Private Key" HorizontalAlignment="Left" PreviewTextInput="UxSecretPrivKey_OnPreviewTextInput">
+                                    <PasswordBox.Style>
+                                        <Style BasedOn="{StaticResource MaterialDesignFloatingHintPasswordBox}" TargetType="PasswordBox">
+                                            <!--<Setter Property="IsEnabled" Value="False"></Setter>-->
+                                            <Style.Triggers>
+                                                <!--<DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False">
+                                                    <Setter Property="Visibility" Value="Visible" ></Setter>
+                                                </DataTrigger>-->
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="True"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="False"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="False"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="True"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </PasswordBox.Style>
+                                </PasswordBox>
+                                <ToggleButton Name="uxPwdToggleBtn" Click="UxPwdToggleBtn_OnClick" Height="24" Width="24">
+                                    <ToggleButton.Style>
+                                        <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton">
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="True"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="False"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ToggleButton.Style>
+                                    <ToggleButton.Content>
+                                        <materialDesign:PackIcon Kind="Lock" Height="16" Width="16" />
+                                    </ToggleButton.Content>
+                                    <materialDesign:ToggleButtonAssist.OnContent>
+                                        <materialDesign:PackIcon Kind="Eye" Height="16" Width="16" />
+                                    </materialDesign:ToggleButtonAssist.OnContent>
+                                </ToggleButton>
+                                <Button Name="uxCopyBtn" Height="24" Width="24" Margin="10,0,0,0" Click="UxCopyBtn_OnClick">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource MaterialDesignFloatingActionMiniLightButton}" TargetType="Button">
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="True"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=uxPwdToggleBtn, Path=IsChecked}" Value="False"/>
+                                                        <Condition Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Content>
+                                        <materialDesign:PackIcon
+                                        Kind="ContentCopy"
+                                        Height="16"
+                                        Width="16" />
+                                    </Button.Content>
+                                </Button>
+
+                                <Button Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Name="uxViewFileBtn" IsEnabled="False" Content="Open Last Output Directory" Click="UxViewFileBtn_OnClick">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="False">
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=uxOutputKeysChk, Path=IsChecked}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" ></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="uxStartBtn" HorizontalAlignment="Center" Click="UxStopStartBtn_OnClick" Style="{DynamicResource MaterialDesignFlatButton}">Start</Button>
+                            <Button Name="uxStopBtn" HorizontalAlignment="Center" Click="UxStopBtn_OnClick" IsEnabled="False" Style="{DynamicResource MaterialDesignFlatButton}">Stop</Button>
+                            <Button HorizontalAlignment="Center" Name="uxViewOutputBtn" IsEnabled="False" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{DynamicResource MaterialDesignFlatButton}">
+                                <Button.CommandParameter>
+                                    <materialDesign:Card Padding="32" Margin="16">
+                                        <StackPanel Height="300">
+                                            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0,0,0,10">Output</TextBlock>
+                                            <ScrollViewer VerticalScrollBarVisibility="Visible" Width="375px" Height="230" Margin="0,0,0,10">
+                                                <TextBlock Name="uxOutputTxt" IsEnabled="True" VerticalAlignment="Stretch" TextWrapping="Wrap" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                                       ScrollViewer.VerticalScrollBarVisibility="Visible"></TextBlock>
+                                            </ScrollViewer>
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" 
+                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                            CommandParameter="Sample2Cancel"
+                                            HorizontalAlignment="Center">Close</Button>
+                                        </StackPanel>
+                                    </materialDesign:Card>
+                                </Button.CommandParameter>
+                                View Output
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Button Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" Name="uxViewStatsBtn" CommandParameter="{x:Static Dock.Bottom}" Grid.Row="3" Style="{DynamicResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon Kind="ArrowUp" />
+                </Button>
+            </Grid>
+        </materialDesign:DialogHost>
+    </materialDesign:DrawerHost>
+</Window>
+
+
+

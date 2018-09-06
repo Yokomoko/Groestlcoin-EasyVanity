@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Groestlcoin_VanityGen_UI.Properties">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Groestlcoin VanityGen UI;component/Themes/BaseTheme.xaml"/>
+        <ResourceDictionary Source="/Groestlcoin VanityGen UI;component/Themes/Retro.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

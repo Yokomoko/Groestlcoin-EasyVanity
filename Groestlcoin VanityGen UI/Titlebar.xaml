@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="Groestlcoin_VanityGen_UI.Titlebar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Groestlcoin_VanityGen_UI"
+             xmlns:themeSelector="clr-namespace:Groestlcoin_VanityGen_UI.ThemeSelector"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.FontWeight="Regular"
+             themeSelector:ThemeSelector.CurrentThemeDictionary="{Binding ElementName=uxThemeSelector, Path=SelectedItem.Tag}"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"
+             mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="500" Height="Auto">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel>
+        <Border Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, FallbackValue=White}" CornerRadius="5" DockPanel.Dock="Top" Height="25" x:Name="TitleBar" MouseLeftButtonDown="TitleBar_OnMouseLeftButtonDown">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Title, RelativeSource={RelativeSource FindAncestor,AncestorType=Window},FallbackValue=Title}" Margin="10,0,0,0" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="LightGray" ShadowDepth="0.2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Label>Theme:</Label>
+                    <ComboBox Name="uxThemeSelector" SelectedIndex="0" Width="100" SelectionChanged="UxThemeSelector_OnSelectionChanged">
+                        <ComboBoxItem Content="Material White" Tag="/Groestlcoin VanityGen UI;component/Themes/BaseTheme.xaml"/>
+                        <!--<ComboBoxItem Content="Material Red" Tag="/Groestlcoin VanityGen UI;component/Themes/RedMaterial.xaml"/>-->
+                        <ComboBoxItem Content="Material Dark" Tag="/Groestlcoin VanityGen UI;component/Themes/Retro.xaml"/>
+                    </ComboBox>
+                </StackPanel>
+                <Button Grid.Column="2" FontFamily="Impact" FontWeight="ExtraBold" Background="Transparent"  BorderThickness="0" Padding="2" Width="20" Click="Button_Click" Name="uxMinimiseBtn">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="WindowMinimize" Foreground="{DynamicResource MaterialDesignBody}"/>
+                    </Button.Content>
+                </Button>
+                <Button Name="uxAboutBtn" Grid.Column="3" Background="Transparent" BorderThickness="0" Height="20" Width="20" Padding="2" Click="ButtonBase_OnClick">
+                    <Button.Content>
+                                <materialDesign:PackIcon Kind="CommentQuestion" Foreground="{DynamicResource MaterialDesignBody}"/>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="4" Name="UxCloseBtn"  Background="Transparent" BorderThickness="0" Height="20" Width="20" Padding="2" Click="UxCloseBtn_OnClick">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="WindowClose"  Foreground="{DynamicResource MaterialDesignBody}"/>
+
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Border>
+    </DockPanel>
+</UserControl>
