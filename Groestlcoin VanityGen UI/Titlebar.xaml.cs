@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace Groestlcoin_VanityGen_UI {
     /// <summary>
@@ -96,6 +98,11 @@ namespace Groestlcoin_VanityGen_UI {
             ((App)Application.Current).ApplyBase(isDark);
 
             ((App) Application.Current).ApplyPrimary(isDark ? ((App) Application.Current).DarkPrimary : ((App) Application.Current).LightPrimary);
+        }
+
+        private void LnkGit_OnRequestNavigate(object sender, RequestNavigateEventArgs e){
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

@@ -46,9 +46,10 @@
                     </Button.Content>
                 </Button>
                 <Button Name="uxAboutBtn" Grid.Column="3" Background="Transparent" BorderThickness="0" Height="20" Width="20" Padding="2" Click="ButtonBase_OnClick">
-                    <Button.Content>
-                                <materialDesign:PackIcon Kind="CommentQuestion" Foreground="{DynamicResource MaterialDesignBody}"/>
-                    </Button.Content>
+                    <Hyperlink x:Name="lnkGit" NavigateUri="https://github.com/Groestlcoin/Groestlcoin-EasyVanity"
+                               RequestNavigate="LnkGit_OnRequestNavigate" >
+                        <materialDesign:PackIcon Kind="CommentQuestion" Foreground="{DynamicResource MaterialDesignBody}"/>
+                    </Hyperlink>
                 </Button>
                 <Button Grid.Column="4" Name="UxCloseBtn"  Background="Transparent" BorderThickness="0" Height="20" Width="20" Padding="2" Click="UxCloseBtn_OnClick">
                     <Button.Content>
