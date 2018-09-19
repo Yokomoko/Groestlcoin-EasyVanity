@@ -356,6 +356,7 @@
                                         </Style>
                                     </Button.Style>
                                 </Button>
+                                
                             </StackPanel>
                         </Grid>
                     </materialDesign:Card>
@@ -381,7 +382,9 @@
                                 </Button.CommandParameter>
                                 View Output
                             </Button>
+                            <materialDesign:Badged Name="uxFileWatchBtn" IsEnabled="False" Width="70px" BadgePlacementMode="BottomRight" BadgeColorZoneMode="Dark" Badge="VanityGen Files Not Found" BadgeBackground="Red" Foreground="{DynamicResource MaterialDesignBackground}">_</materialDesign:Badged>
                         </StackPanel>
+                        
                     </StackPanel>
                 </Grid>
                 <Button Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" Name="uxViewStatsBtn" CommandParameter="{x:Static Dock.Bottom}" Grid.Row="3" Style="{DynamicResource MaterialDesignFlatButton}">
