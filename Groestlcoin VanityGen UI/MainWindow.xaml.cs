@@ -343,7 +343,7 @@ namespace Groestlcoin_VanityGen_UI {
 
         private void UxStopStartBtn_OnClick(object sender, RoutedEventArgs e) {
             if (!CheckFileExistance()) {
-                DialogHelper.ShowOKDialog(DH, $@"Unable to start VanityGen. Please check that the VanityGen files exist in the installation directory and try again.{Environment.NewLine}{Environment.NewLine}The VanityGen files can be found here:{Environment.NewLine}https://github.com/Groestlcoin/vanitygen/releases");
+                DialogHelper.ShowOKDialog(DH, $"Unable to start VanityGen. Please check that the VanityGen files exist in the installation directory and try again.{Environment.NewLine}{Environment.NewLine}The VanityGen files can be found here:{Environment.NewLine}https://github.com/Groestlcoin/vanitygen/releases");
             }
 
             if (!string.IsNullOrEmpty(uxPhraseTxt.Text)) {

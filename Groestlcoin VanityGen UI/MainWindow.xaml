@@ -382,7 +382,7 @@
                                 </Button.CommandParameter>
                                 View Output
                             </Button>
-                            <materialDesign:Badged Name="uxFileWatchBtn" IsEnabled="False" Width="70px" BadgePlacementMode="BottomRight" BadgeColorZoneMode="Dark" Badge="VanityGen Files Not Found" BadgeBackground="Red" Foreground="{DynamicResource MaterialDesignBackground}">_</materialDesign:Badged>
+                            <materialDesign:Badged Name="uxFileWatchBtn" IsEnabled="False" Width="70px" BadgePlacementMode="BottomRight" BadgeColorZoneMode="Dark" Badge="VanityGen Files Not Found" BadgeBackground="Red" Foreground="{DynamicResource MaterialDesignPaper}">_</materialDesign:Badged>
                         </StackPanel>
                         
                     </StackPanel>

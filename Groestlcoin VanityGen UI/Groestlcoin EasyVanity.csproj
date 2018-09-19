@@ -137,9 +137,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="ProgFiles\calc_addrs.cl">
+    <Content Include="ProgFiles\calc_addrs.cl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="ProgFiles\CHANGELOG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
