@@ -125,8 +125,6 @@
                             <ComboBox Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignComboBox}" Name="uxPrefix" materialDesign:HintAssist.Hint="Prefix" Margin="0 10 0 0" SelectionChanged="UxPrefix_OnSelectionChanged">
                                 <ComboBoxItem IsSelected="True">grs1q</ComboBoxItem>
                                 <ComboBoxItem>F</ComboBoxItem>
-                                <ComboBoxItem>31h2</ComboBoxItem>
-                                <ComboBoxItem>3R2c</ComboBoxItem>
                             </ComboBox>
                             <TextBox Grid.Row="0" Grid.Column="1" Name="uxPhraseTxt" PreviewTextInput="UxPhraseTxt_OnPreviewTextInput" DataObject.Pasting="UxPhraseTxt_OnPasting" Width="160" Margin="10 0 0 0" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Phrase you want to match" ></TextBox>
                             <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
