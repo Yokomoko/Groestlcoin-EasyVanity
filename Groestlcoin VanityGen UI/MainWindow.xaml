@@ -106,6 +106,7 @@
                     <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2" Padding="32" Margin="16" Height="215">
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60px"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
@@ -121,7 +122,13 @@
                                     <Setter Property="HorizontalAlignment" Value="Left"></Setter>
                                 </Style>
                             </Grid.Resources>
-                            <TextBox Grid.Row="0" Grid.Column="0" Name="uxPhraseTxt" PreviewTextInput="UxPhraseTxt_OnPreviewTextInput" DataObject.Pasting="UxPhraseTxt_OnPasting" Width="160" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Phrase you want to match" ></TextBox>
+                            <ComboBox Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignComboBox}" Name="uxPrefix" materialDesign:HintAssist.Hint="Prefix" Margin="0 10 0 0" SelectionChanged="UxPrefix_OnSelectionChanged">
+                                <ComboBoxItem IsSelected="True">grs1q</ComboBoxItem>
+                                <ComboBoxItem>F</ComboBoxItem>
+                                <ComboBoxItem>31h2</ComboBoxItem>
+                                <ComboBoxItem>3R2c</ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Grid.Row="0" Grid.Column="1" Name="uxPhraseTxt" PreviewTextInput="UxPhraseTxt_OnPreviewTextInput" DataObject.Pasting="UxPhraseTxt_OnPasting" Width="160" Margin="10 0 0 0" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Phrase you want to match" ></TextBox>
                             <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Name="PopupEnabled">Advanced:</TextBlock>
@@ -151,7 +158,7 @@
                                             <TextBlock Grid.Column="0" Grid.Row="1">Save Keys to Text File</TextBlock>
                                             <TextBlock Grid.Column="0" Grid.Row="2">Keep Finding</TextBlock>
                                             <TextBlock Grid.Column="0" Grid.Row="4">Using CPU or GPU</TextBlock>
-                                            <CheckBox Grid.Column="1" Grid.Row="0" Name="uxCaseOptChk"  Style="{DynamicResource MaterialDesignCheckBox}"></CheckBox>
+                                            <CheckBox Grid.Column="1" Grid.Row="0" Name="uxCaseOptChk"  Style="{DynamicResource MaterialDesignCheckBox}" IsEnabled="False"></CheckBox>
                                             <CheckBox Grid.Column="1" Grid.Row="1" Name="uxOutputKeysChk" Checked="UxOutputKeysChk_OnChecked" Unchecked="UxOutputKeysChk_OnUnchecked" Style="{DynamicResource MaterialDesignCheckBox}"/>
                                             <CheckBox Grid.Column="1" Grid.Row="2" Name="uxKeepFindingOptChk">
                                                 <CheckBox.Style>
