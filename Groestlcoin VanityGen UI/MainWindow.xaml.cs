@@ -367,8 +367,10 @@ namespace Groestlcoin_VanityGen_UI {
                 var validChars = new[] { "W", "X", "Y", "Z" };
                 var firstCharacter = uxPhraseTxt.Text[0];
                 if (uxPrefix.Text.StartsWith("F") || uxPrefix.Text.StartsWith("3")) {
-                    var phrase = uxPhraseTxt.Text;
-                    if (phrase.StartsWith("3")) {
+                    var phrase = uxPrefix.Text + uxPhraseTxt.Text;
+
+                    if (phrase.StartsWith("3"))
+                    {
                         phrase = phrase.ToLower();
                     }
                     validChars = new[] { "W", "X", "Y", "Z" };
