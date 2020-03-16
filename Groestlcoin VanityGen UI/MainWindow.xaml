@@ -13,7 +13,7 @@
         ResizeMode="NoResize"
         Icon="/Resources/GRS-logo.ico" BorderThickness="3"
         AllowsTransparency="True"
-        Title="Groestlcoin EasyVanity" SizeToContent="WidthAndHeight" Closing="MainWindow_OnClosing">
+        Title="Groestlcoin EasyVanity 2020" SizeToContent="WidthAndHeight" Closing="MainWindow_OnClosing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -94,11 +94,11 @@
                                 </Rectangle.Effect>
                             </Rectangle>
                             <DockPanel Grid.Column="1" Grid.ColumnSpan="2">
-                                <TextBlock  FontSize="47" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9">
+                                <TextBlock  FontSize="47" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9" Margin="-30 0 0 0">
                                     <TextBlock.Effect>
                                         <BlurEffect Radius="0.5" KernelType="Box" />
                                     </TextBlock.Effect>
-                                Groestlcoin EasyVanity
+                                Groestlcoin EasyVanity 2020
                                 </TextBlock>
                             </DockPanel>
                         </Grid>

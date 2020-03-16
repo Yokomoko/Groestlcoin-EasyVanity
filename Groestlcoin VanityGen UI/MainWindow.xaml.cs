@@ -129,27 +129,19 @@ namespace Groestlcoin_VanityGen_UI {
         #region Private Methods
 
         private bool CheckFileExistance() {
-            var filesFound = File.Exists(Home + @"\ProgFiles\vanitygen.exe");
+            var filesFound = File.Exists(Home + @"\ProgFiles\VanitySearch.exe");
 
-            if (!File.Exists(Home + @"\ProgFiles\oclvanitygen.exe")) {
-                filesFound = false;
-            }
-            if (!File.Exists(Home + @"\ProgFiles\keyconv.exe")) {
-                filesFound = false;
-            }
-            if (!File.Exists(Home + @"\ProgFiles\calc_addrs.cl")) {
-                filesFound = false;
-            }
+
             if (filesFound) {
                 Dispatcher.Invoke(() => {
                     uxFileWatchBtn.BadgeBackground = Brushes.Green;
-                    uxFileWatchBtn.Badge = "VanityGen Files Found";
+                    uxFileWatchBtn.Badge = "EasyVanity Files Found";
                 });
             }
             else {
                 Dispatcher.Invoke(() => {
                     uxFileWatchBtn.BadgeBackground = Brushes.Red;
-                    uxFileWatchBtn.Badge = "VanityGen Files Not Found";
+                    uxFileWatchBtn.Badge = "EasyVanity Files Not Found";
                 });
             }
             return filesFound;
@@ -192,10 +184,13 @@ namespace Groestlcoin_VanityGen_UI {
         private void SetSettings() {
             var sb = new StringBuilder();
 
-            sb.Append("-v");
-
-            if (uxCaseOptChk.IsChecked == false) sb.Append(" -i");
-            if (uxKeepFindingOptChk.IsChecked == true) sb.Append(" -k");
+            if (uxCaseOptChk.IsChecked == false)
+                sb.Append(" -c");
+            if (uxKeepFindingOptChk.IsChecked == false)
+                sb.Append(" -stop");
+            if (uxHwSelect.IsPressed) {
+                sb.Append(" -gpu");
+            }
             if (uxOutputKeysChk.IsChecked == true) {
                 var dlg = new SaveFileDialog();
                 dlg.DefaultExt = ".txt";
@@ -242,13 +237,19 @@ namespace Groestlcoin_VanityGen_UI {
                     uxProbLbl.Text = outputLineSplit[3];
                 });
             }
-
-            if (outputLine.Contains("Address: ")) {
-                PublicKey = outputLine.Replace("Address: ", "");
+            var addressType = "p2pkh";
+            if (outputLine.Contains("Pub Addr: ")) {
+                PublicKey = outputLine.Replace("Pub Addr: ", "");
                 Dispatcher.Invoke(() => uxPubKeyTxt.Text = PublicKey);
+                if (PublicKey.StartsWith("grs1")) {
+                    addressType = "p2wpkh";
+                }
+                else if (PublicKey.StartsWith("3")) {
+                    addressType = "p2wpkh-p2sh";
+                }
             }
-            else if (outputLine.Contains("Privkey: ")) {
-                PrivateKey = outputLine.Replace("Privkey: ", "");
+            else if (outputLine.Contains($"Priv (WIF): {addressType}:")) {
+                PrivateKey = outputLine.Replace($"Priv (WIF): {addressType}:", "");
                 Dispatcher.Invoke(() => {
                     uxPrivKeyTxt.Text = PrivateKey;
                     uxSecretPrivKey.Password = PrivateKey;
@@ -259,7 +260,8 @@ namespace Groestlcoin_VanityGen_UI {
 
         private bool TextAllowed(string s) {
             foreach (var c in s) {
-                if (char.IsLetterOrDigit(c) || char.IsControl(c)) continue;
+                if (char.IsLetterOrDigit(c) || char.IsControl(c))
+                    continue;
                 return false;
             }
             return true;
@@ -307,7 +309,8 @@ namespace Groestlcoin_VanityGen_UI {
 
         private void UxPhraseTxt_OnPasting(object sender, DataObjectPastingEventArgs e) {
             var s = (string)e.DataObject.GetData(typeof(string));
-            if (!TextAllowed(s)) e.CancelCommand();
+            if (!TextAllowed(s))
+                e.CancelCommand();
         }
 
         private void UxPhraseTxt_OnPreviewTextInput(object sender, TextCompositionEventArgs e) {
@@ -388,12 +391,7 @@ namespace Groestlcoin_VanityGen_UI {
                 KillProcesses();
             }
             else {
-                if (uxHwSelect.IsPressed) {
-                    CMDFile = "oclvanitygen.exe";
-                }
-                else if (!uxHwSelect.IsPressed) {
-                    CMDFile = "vanitygen.exe";
-                }
+                CMDFile = "VanitySearch.exe";
             }
             SetSettings();
         }
@@ -418,7 +416,8 @@ namespace Groestlcoin_VanityGen_UI {
                 using (var errorWaitHandle = new AutoResetEvent(false)) {
                     process.OutputDataReceived += (s, e) => {
                         if (e.Data == null) {
-                            if (outputWaitHandle != null) outputWaitHandle.Set();
+                            if (outputWaitHandle != null)
+                                outputWaitHandle.Set();
                         }
                         else {
                             SetText(e.Data);
@@ -426,7 +425,7 @@ namespace Groestlcoin_VanityGen_UI {
                     };
                     process.ErrorDataReceived += (s, e) => {
                         if (e.Data == null) {
-                            if (errorWaitHandle != null) errorWaitHandle.Set();
+                            errorWaitHandle.Set();
                         }
                         else {
                             SetText(e.Data);
@@ -437,7 +436,8 @@ namespace Groestlcoin_VanityGen_UI {
 
                     Dispatcher.Invoke(() => {
                         phrase = uxPhraseTxt.Text;
-                        if (uxHwSelect.IsPressed == false) phrase = "F" + phrase;
+                        if (uxHwSelect.IsPressed == false)
+                            phrase = "F" + phrase;
                     });
 
                     process.Start();
