@@ -86,7 +86,7 @@ namespace Groestlcoin_VanityGen_UI {
             //}
         }
 
-        public bool isDark { get; set; } = true;
+        public bool isDark { get; set; } = false;
 
         public class ThemeChangeClickEventArgs : EventArgs {
             public string Tag { get; set; }

@@ -37,7 +37,7 @@
                     <ComboBox Name="uxThemeSelector" SelectedIndex="0" Width="100" SelectionChanged="UxThemeSelector_OnSelectionChanged">
                         <ComboBoxItem Content="Material White" Tag="/Groestlcoin VanityGen UI;component/Themes/BaseTheme.xaml"/>
                         <!--<ComboBoxItem Content="Material Red" Tag="/Groestlcoin VanityGen UI;component/Themes/RedMaterial.xaml"/>-->
-                        <ComboBoxItem Content="Material Dark" Tag="/Groestlcoin VanityGen UI;component/Themes/Retro.xaml"/>
+                        <ComboBoxItem Content="Material Dark" IsSelected="True" Tag="/Groestlcoin VanityGen UI;component/Themes/Retro.xaml"/>
                     </ComboBox>
                 </StackPanel>
                 <Button Grid.Column="2" FontFamily="Impact" FontWeight="ExtraBold" Background="Transparent"  BorderThickness="0" Padding="2" Width="20" Click="Button_Click" Name="uxMinimiseBtn">
